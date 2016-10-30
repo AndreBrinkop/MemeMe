@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
     override var prefersStatusBarHidden: Bool { return true }
 
@@ -16,6 +16,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var topTextField: UITextField!
+    let initialTopTextFieldText = "TOP"
+    @IBOutlet weak var bottomTextField: UITextField!
+    let initialBottomTextFieldText = "BOTTOM"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         cancelButton.isEnabled = false
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
+        
+        topTextField.delegate = self
+        topTextField.text = initialTopTextFieldText
+        bottomTextField.delegate = self
+        bottomTextField.text = initialBottomTextFieldText
     }
     
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
@@ -46,11 +56,40 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func handlePinch(_ sender: UIPanGestureRecognizer) {
 
         if let textView: UITextField = sender.view as? UITextField {
-            let newPosition: CGPoint = sender.location(in: self.view)
-
-            var newPositionY = max(self.imageView.frame.minY, newPosition.y)
-            newPositionY = min(self.imageView.frame.maxY - textView.frame.height, newPositionY)
+            var newPositionY: CGFloat = sender.location(in: self.view).y
+            let (lowerBorder, upperBorder) = getYPositionBorders(for: textView)
+            
+            newPositionY = max(lowerBorder, newPositionY)
+            newPositionY = min(upperBorder - textView.frame.height, newPositionY)
             textView.frame.origin.y = newPositionY
+        }
+    }
+    
+    private func getYPositionBorders(for textField: UITextField) -> (CGFloat, CGFloat) {
+        if(textField == topTextField) {
+            return (self.imageView.frame.minY, bottomTextField.frame.minY)
+        } // textField == bottomTextField
+        return (topTextField.frame.maxY, self.imageView.frame.maxY)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    private func getInitialText(for textField: UITextField) -> String {
+        return (textField == topTextField) ? initialTopTextFieldText : initialBottomTextFieldText
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text == getInitialText(for: textField) {
+            textField.text = ""
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text == "" {
+            textField.text = getInitialText(for: textField)
         }
     }
     

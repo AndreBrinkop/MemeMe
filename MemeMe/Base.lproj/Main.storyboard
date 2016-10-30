@@ -103,10 +103,12 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="bottomTextField" destination="kO9-Ga-P5B" id="bmR-co-Ix1"/>
                         <outlet property="cameraButton" destination="g9k-1k-1bh" id="3Qr-Wg-XeV"/>
                         <outlet property="cancelButton" destination="lIw-wq-Dbq" id="qX1-hd-4gT"/>
                         <outlet property="imageView" destination="sTm-aI-TUr" id="2I9-cA-Xgv"/>
                         <outlet property="shareButton" destination="w6q-xA-sT6" id="BAa-qU-27e"/>
+                        <outlet property="topTextField" destination="3bI-Nb-VQk" id="mM1-Fv-rX4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
