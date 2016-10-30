@@ -23,15 +23,15 @@
                                     <constraint firstAttribute="height" constant="44" id="lqg-EL-2U3"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="cancel" id="lIw-wq-Dbq">
-                                        <connections>
-                                            <action selector="cancel:" destination="BYZ-38-t0r" id="888-yi-fiw"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bjB-yE-B9f"/>
                                     <barButtonItem systemItem="action" id="w6q-xA-sT6">
                                         <connections>
                                             <action selector="share:" destination="BYZ-38-t0r" id="gAA-tS-xKe"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bjB-yE-B9f"/>
+                                    <barButtonItem systemItem="cancel" id="lIw-wq-Dbq">
+                                        <connections>
+                                            <action selector="cancel:" destination="BYZ-38-t0r" id="888-yi-fiw"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

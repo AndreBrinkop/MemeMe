@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
@@ -57,11 +57,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     // MARK: Actions
     
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
+        var sourceType: UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.camera
         if sender.title == "Album" {
-            print("Pressed album button")
-        } else { // Camera
-            print("Pressed camera button")
+            sourceType = UIImagePickerControllerSourceType.photoLibrary
         }
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func cancel(_ sender: AnyObject) {
@@ -113,6 +118,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         if textField.text == "" {
             textField.text = getInitialText(for: textField)
         }
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // TODO
     }
     
 }
