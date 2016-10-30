@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
     
+    // MARK: Properties
+    
     override var prefersStatusBarHidden: Bool { return true }
 
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -29,6 +31,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         NSStrokeWidthAttributeName : -2.0
     ]
     
+    // MARK: Initialization
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -50,6 +54,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         textField.textAlignment = NSTextAlignment.center
     }
     
+    // MARK: Actions
+    
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         if sender.title == "Album" {
             print("Pressed album button")
@@ -64,6 +70,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @IBAction func share(_ sender: AnyObject) {
              print("Pressed share button")
     }
+    
+    // MARK: UIGestureRecognizerDelegate
     
     @IBAction func handlePinch(_ sender: UIPanGestureRecognizer) {
 
@@ -83,6 +91,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         } // textField == bottomTextField
         return (topTextField.frame.maxY, self.imageView.frame.maxY)
     }
+    
+    // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
