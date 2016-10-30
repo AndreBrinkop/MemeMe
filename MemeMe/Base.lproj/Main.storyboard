@@ -56,26 +56,33 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4cJ-Ml-nB7"/>
                                 </items>
                             </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sTm-aI-TUr"/>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9aT-Pm-vAe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0Ni-fO-ut4"/>
                             <constraint firstItem="Aj3-T8-79C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nyu-7i-ZGP"/>
+                            <constraint firstItem="Aj3-T8-79C" firstAttribute="top" secondItem="sTm-aI-TUr" secondAttribute="bottom" id="Pty-1s-knl"/>
+                            <constraint firstItem="sTm-aI-TUr" firstAttribute="top" secondItem="9aT-Pm-vAe" secondAttribute="bottom" id="VUm-Jz-Nx3"/>
                             <constraint firstAttribute="trailing" secondItem="9aT-Pm-vAe" secondAttribute="trailing" id="WDc-YJ-zfo"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Aj3-T8-79C" secondAttribute="bottom" id="aqL-ma-eik"/>
                             <constraint firstItem="9aT-Pm-vAe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cGz-5U-U9W"/>
                             <constraint firstAttribute="trailing" secondItem="Aj3-T8-79C" secondAttribute="trailing" id="knf-9a-iq4"/>
+                            <constraint firstItem="sTm-aI-TUr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oYt-3M-xdU"/>
+                            <constraint firstAttribute="trailing" secondItem="sTm-aI-TUr" secondAttribute="trailing" id="og5-jM-604"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="cameraButton" destination="g9k-1k-1bh" id="3Qr-Wg-XeV"/>
                         <outlet property="cancelButton" destination="lIw-wq-Dbq" id="qX1-hd-4gT"/>
+                        <outlet property="imageView" destination="sTm-aI-TUr" id="2I9-cA-Xgv"/>
                         <outlet property="shareButton" destination="w6q-xA-sT6" id="BAa-qU-27e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
         </scene>
     </scenes>
 </document>
