@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override var prefersStatusBarHidden: Bool { return true }
 
@@ -41,6 +41,17 @@ class ViewController: UIViewController {
     }
     @IBAction func share(_ sender: AnyObject) {
              print("Pressed share button")
+    }
+    
+    @IBAction func handlePinch(_ sender: UIPanGestureRecognizer) {
+
+        if let textView: UITextField = sender.view as? UITextField {
+            let newPosition: CGPoint = sender.location(in: self.view)
+
+            var newPositionY = max(self.imageView.frame.minY, newPosition.y)
+            newPositionY = min(self.imageView.frame.maxY - textView.frame.height, newPositionY)
+            textView.frame.origin.y = newPositionY
+        }
     }
     
 }
