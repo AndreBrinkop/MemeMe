@@ -18,9 +18,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var topTextField: UITextField!
-    let initialTopTextFieldText = "TOP"
+    let topTextFieldInitialText = "TOP"
     @IBOutlet weak var bottomTextField: UITextField!
-    let initialBottomTextFieldText = "BOTTOM"
+    let bottomTextFieldInitialText = "BOTTOM"
+    
+    let memeTextAttributes : [String : Any] = [
+        NSStrokeColorAttributeName : UIColor.black,
+        NSForegroundColorAttributeName : UIColor.white,
+        NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSStrokeWidthAttributeName : -2.0
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +39,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         
-        topTextField.delegate = self
-        topTextField.text = initialTopTextFieldText
-        bottomTextField.delegate = self
-        bottomTextField.text = initialBottomTextFieldText
+        configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
+        configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
+    }
+    
+    private func configureTextField(textField: UITextField, initialText: String) {
+        textField.delegate = self
+        textField.text = initialText
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.center
     }
     
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
@@ -78,7 +90,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     }
     
     private func getInitialText(for textField: UITextField) -> String {
-        return (textField == topTextField) ? initialTopTextFieldText : initialBottomTextFieldText
+        return (textField == topTextField) ? topTextFieldInitialText : bottomTextFieldInitialText
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
