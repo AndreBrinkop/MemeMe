@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

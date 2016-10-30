@@ -42,34 +42,56 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="cno-p1-uTi"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="18c-4k-EKp"/>
                                     <barButtonItem systemItem="camera" id="g9k-1k-1bh">
                                         <connections>
                                             <action selector="pickAnImage:" destination="BYZ-38-t0r" id="wKG-gA-7Ws"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="v2N-u7-N63"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gAq-gx-ZSM"/>
                                     <barButtonItem title="Album" id="0F4-Ib-mUo">
                                         <connections>
                                             <action selector="pickAnImage:" destination="BYZ-38-t0r" id="O6E-Rm-goe"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4cJ-Ml-nB7"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CLj-qu-Vdr"/>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sTm-aI-TUr"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sTm-aI-TUr">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3bI-Nb-VQk">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kO9-Ga-P5B">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9aT-Pm-vAe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0Ni-fO-ut4"/>
+                            <constraint firstAttribute="trailing" secondItem="kO9-Ga-P5B" secondAttribute="trailing" id="EvK-fy-rXk"/>
+                            <constraint firstItem="kO9-Ga-P5B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IuT-ec-f5y"/>
                             <constraint firstItem="Aj3-T8-79C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nyu-7i-ZGP"/>
                             <constraint firstItem="Aj3-T8-79C" firstAttribute="top" secondItem="sTm-aI-TUr" secondAttribute="bottom" id="Pty-1s-knl"/>
                             <constraint firstItem="sTm-aI-TUr" firstAttribute="top" secondItem="9aT-Pm-vAe" secondAttribute="bottom" id="VUm-Jz-Nx3"/>
                             <constraint firstAttribute="trailing" secondItem="9aT-Pm-vAe" secondAttribute="trailing" id="WDc-YJ-zfo"/>
+                            <constraint firstItem="3bI-Nb-VQk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="XxE-nr-Qzq"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Aj3-T8-79C" secondAttribute="bottom" id="aqL-ma-eik"/>
                             <constraint firstItem="9aT-Pm-vAe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cGz-5U-U9W"/>
                             <constraint firstAttribute="trailing" secondItem="Aj3-T8-79C" secondAttribute="trailing" id="knf-9a-iq4"/>
+                            <constraint firstAttribute="trailing" secondItem="3bI-Nb-VQk" secondAttribute="trailing" id="lrT-Px-P03"/>
+                            <constraint firstItem="3bI-Nb-VQk" firstAttribute="top" secondItem="9aT-Pm-vAe" secondAttribute="bottom" constant="30" id="mtq-QC-kZk"/>
                             <constraint firstItem="sTm-aI-TUr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oYt-3M-xdU"/>
                             <constraint firstAttribute="trailing" secondItem="sTm-aI-TUr" secondAttribute="trailing" id="og5-jM-604"/>
+                            <constraint firstItem="Aj3-T8-79C" firstAttribute="top" secondItem="kO9-Ga-P5B" secondAttribute="bottom" constant="30" id="rdw-5C-h0E"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
