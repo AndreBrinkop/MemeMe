@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,8 +17,41 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9aT-Pm-vAe">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="lqg-EL-2U3"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="cancel" id="lIw-wq-Dbq"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bjB-yE-B9f"/>
+                                    <barButtonItem systemItem="action" id="w6q-xA-sT6"/>
+                                </items>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aj3-T8-79C">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="gto-dc-cUi"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="cno-p1-uTi"/>
+                                    <barButtonItem systemItem="camera" id="g9k-1k-1bh"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="v2N-u7-N63"/>
+                                    <barButtonItem title="Album" id="0F4-Ib-mUo"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="4cJ-Ml-nB7"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9aT-Pm-vAe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0Ni-fO-ut4"/>
+                            <constraint firstItem="Aj3-T8-79C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nyu-7i-ZGP"/>
+                            <constraint firstAttribute="trailing" secondItem="9aT-Pm-vAe" secondAttribute="trailing" id="WDc-YJ-zfo"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Aj3-T8-79C" secondAttribute="bottom" id="aqL-ma-eik"/>
+                            <constraint firstItem="9aT-Pm-vAe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cGz-5U-U9W"/>
+                            <constraint firstAttribute="trailing" secondItem="Aj3-T8-79C" secondAttribute="trailing" id="knf-9a-iq4"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
