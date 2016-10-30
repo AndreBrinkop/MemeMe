@@ -42,6 +42,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
         cancelButton.isEnabled = false
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
+        imageView.contentMode = .scaleAspectFit
         
         configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
         configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
@@ -123,7 +124,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
     // MARK: UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        // TODO
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.image = image
+        }
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
 }
