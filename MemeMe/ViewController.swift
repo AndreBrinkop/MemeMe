@@ -9,17 +9,38 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override var prefersStatusBarHidden: Bool { return true }
+
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+    }
+    
+    private func configureUI() {
+        cancelButton.isEnabled = false
+        shareButton.isEnabled = false
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
+    }
+    
+    @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
+        if sender.title == "Album" {
+            print("Pressed album button")
+        } else { // Camera
+            print("Pressed camera button")
+        }
+    }
+    
+    @IBAction func cancel(_ sender: AnyObject) {
+            print("Pressed cancel button")
+    }
+    @IBAction func share(_ sender: AnyObject) {
+             print("Pressed share button")
+    }
+    
 }
 

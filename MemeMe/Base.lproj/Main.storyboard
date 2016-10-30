@@ -23,9 +23,17 @@
                                     <constraint firstAttribute="height" constant="44" id="lqg-EL-2U3"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="cancel" id="lIw-wq-Dbq"/>
+                                    <barButtonItem systemItem="cancel" id="lIw-wq-Dbq">
+                                        <connections>
+                                            <action selector="cancel:" destination="BYZ-38-t0r" id="888-yi-fiw"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bjB-yE-B9f"/>
-                                    <barButtonItem systemItem="action" id="w6q-xA-sT6"/>
+                                    <barButtonItem systemItem="action" id="w6q-xA-sT6">
+                                        <connections>
+                                            <action selector="share:" destination="BYZ-38-t0r" id="gAA-tS-xKe"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aj3-T8-79C">
@@ -34,9 +42,17 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="cno-p1-uTi"/>
-                                    <barButtonItem systemItem="camera" id="g9k-1k-1bh"/>
+                                    <barButtonItem systemItem="camera" id="g9k-1k-1bh">
+                                        <connections>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="wKG-gA-7Ws"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="v2N-u7-N63"/>
-                                    <barButtonItem title="Album" id="0F4-Ib-mUo"/>
+                                    <barButtonItem title="Album" id="0F4-Ib-mUo">
+                                        <connections>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="O6E-Rm-goe"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4cJ-Ml-nB7"/>
                                 </items>
                             </toolbar>
@@ -52,6 +68,11 @@
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="cameraButton" destination="g9k-1k-1bh" id="3Qr-Wg-XeV"/>
+                        <outlet property="cancelButton" destination="lIw-wq-Dbq" id="qX1-hd-4gT"/>
+                        <outlet property="shareButton" destination="w6q-xA-sT6" id="BAa-qU-27e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
