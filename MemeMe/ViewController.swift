@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
@@ -77,20 +77,35 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextField
              print("Pressed share button")
     }
     
-    // MARK: UIGestureRecognizerDelegate
+    // MARK: GestureRecognizer Actions
     
-    @IBAction func handlePinch(_ sender: UIPanGestureRecognizer) {
-
-        if let textView: UITextField = sender.view as? UITextField {
-            var newPositionY: CGFloat = sender.location(in: self.view).y
-            let (lowerBorder, upperBorder) = getYPositionBorders(for: textView)
-            
-            newPositionY = max(lowerBorder, newPositionY)
-            newPositionY = min(upperBorder - textView.frame.height, newPositionY)
-            textView.frame.origin.y = newPositionY
+    @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
+        if let textField: UITextField = sender.view as? UITextField {
+            if sender.numberOfTouches == 1 {
+                var newPositionY: CGFloat = sender.location(in: self.view).y
+                let (lowerBorder, upperBorder) = getYPositionBorders(for: textField)
+                
+                newPositionY = max(lowerBorder, newPositionY)
+                newPositionY = min(upperBorder - textField.frame.height, newPositionY)
+                textField.frame.origin.y = newPositionY
+            }
         }
     }
     
+    var initialFontSize: CGFloat = 40.0
+    @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
+        if let textField: UITextField = sender.view as? UITextField {
+            if sender.state == .began {
+                initialFontSize = (textField.font?.pointSize)!
+            } else if sender.state == .changed {
+                var font = textField.font!
+                font = font.withSize(max(initialFontSize * sender.scale, 8.0))
+                textField.font = font
+            }
+        }
+        
+    }
+
     private func getYPositionBorders(for textField: UITextField) -> (CGFloat, CGFloat) {
         if(textField == topTextField) {
             return (self.imageView.frame.minY, bottomTextField.frame.minY)
