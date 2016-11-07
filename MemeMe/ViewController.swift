@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -81,8 +82,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         var sourceType: UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.camera
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        
         if sender.title == "Album" {
             sourceType = UIImagePickerControllerSourceType.photoLibrary
+        } else if (cameraAuthorizationStatus == AVAuthorizationStatus.denied){
+            alertUserThatCameraAccessIsMissing()
+            return
         }
         
         let imagePicker = UIImagePickerController()
@@ -91,6 +97,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         present(imagePicker, animated: true, completion: nil)
     }
+    
+    private func alertUserThatCameraAccessIsMissing() {
+        let appName = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
+        let message = "You didn't allow \(appName!) to use the camera of your device!"
+        let alert = UIAlertController(title: "Capturing failed", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
     @IBAction func cancel(_ sender: AnyObject) {
             print("Pressed cancel button")
@@ -218,7 +233,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             imageView.image = image
         }
         self.dismiss(animated: true, completion: nil)
-        
     }
     
 }
