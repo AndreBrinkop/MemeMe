@@ -39,11 +39,23 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         NSStrokeWidthAttributeName : -2.0
     ]
     
+    var activeTextFieldField: UITextField?
+    
     // MARK: Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -117,6 +129,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     // MARK: GestureRecognizer Actions
     
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
+        if activeTextFieldField != nil {
+            return
+        }
+        
         if let textField: UITextField = sender.view as? UITextField {
             if sender.numberOfTouches == 1 {
                 var yCoordinate: CGFloat = getPannedTextFieldCoordinate(of: sender)
@@ -134,6 +150,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     var yCenterBeforeGesture: CGFloat = 0.0
     
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
+        if activeTextFieldField != nil {
+            return
+        }
+        
         if let textField: UITextField = sender.view as? UITextField {
             
             if sender.state == .began {
@@ -215,12 +235,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextFieldField = textField
         if textField.text == getInitialText(for: textField) {
             textField.text = ""
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        activeTextFieldField = nil
         if textField.text == "" {
             textField.text = getInitialText(for: textField)
         }
@@ -235,5 +257,51 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: KeyboardNotifications
+    
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name:
+            NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name:
+            NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    var viewShiftValue: CGFloat = 0.0
+    
+    func keyboardWillShow(notification: NSNotification) {
+        shiftKeyboardBack()
+        
+        if let activeTextFieldMaxY = activeTextFieldField?.frame.maxY {
+            let keyboardMinY = view.frame.maxY - getKeyboardHeight(notification: notification)
+            
+            if activeTextFieldMaxY > keyboardMinY {
+                viewShiftValue = getKeyboardHeight(notification: notification)
+                viewShiftValue = viewShiftValue - (view.frame.maxY - activeTextFieldMaxY)
+                view.frame.origin.y -= viewShiftValue
+            }
+        }
+    }
+    
+    func keyboardWillHide() {
+        shiftKeyboardBack()
+    }
+    
+    private func shiftKeyboardBack() {
+        if viewShiftValue != 0.0 {
+            view.frame.origin.y += viewShiftValue
+            viewShiftValue = 0.0
+        }
+    }
+    
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
 }
 
