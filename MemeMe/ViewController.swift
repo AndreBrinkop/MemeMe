@@ -97,44 +97,60 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     var initialFontSize: CGFloat = 40.0
+    var initialYCenter: CGFloat = 0.0
+    
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
         if let textField: UITextField = sender.view as? UITextField {
+            
             if sender.state == .began {
                 initialFontSize = (textField.font?.pointSize)!
+                initialYCenter = getYPosition(of: textField) + textField.frame.height / 2.0
             } else if sender.state == .changed {
                 var font = textField.font!
                 font = font.withSize(max(initialFontSize * sender.scale, 8.0))
                 textField.font = font
+                setYPosition(of: textField, centerY: initialYCenter)
             }
         }
-        
     }
     
     private func getPannedTextFieldCoordinate(of gestureRecognizer: UIPanGestureRecognizer) -> CGFloat {
         var yCoordinate: CGFloat = gestureRecognizer.location(in: self.imageView).y
+        let textFieldHeight: CGFloat = gestureRecognizer.view!.frame.height / 2.0
         
         if gestureRecognizer.view == topTextField {
-            yCoordinate -= gestureRecognizer.view!.frame.height / 2.0
+            yCoordinate -= textFieldHeight
         } else {
-            yCoordinate += gestureRecognizer.view!.frame.height / 2.0
+            yCoordinate -= textFieldHeight
         }
         
         return yCoordinate
     }
 
     private func getYPositionBorders(of textField: UITextField) -> (CGFloat, CGFloat) {
-        let textFieldTotalHeight = topTextField.frame.height + bottomTextField.frame.height
         if(textField == topTextField) {
-            return (0.0, self.imageView.frame.height - bottomTextFieldLayoutConstraint.constant - textFieldTotalHeight)
+            return (0.0, self.imageView.frame.height - bottomTextFieldLayoutConstraint.constant - (topTextField.frame.height + bottomTextField.frame.height))
         } // textField == bottomTextField
-        return (topTextFieldLayoutConstraint.constant + textFieldTotalHeight, self.imageView.frame.height)
+        return (topTextFieldLayoutConstraint.constant + topTextField.frame.height, self.imageView.frame.height - bottomTextField.frame.height)
     }
     
     private func setYPosition(of textField: UITextField, y: CGFloat) {
         if textField == topTextField {
             topTextFieldLayoutConstraint.constant = y
         } else {
-            bottomTextFieldLayoutConstraint.constant = imageView.frame.height - y
+            bottomTextFieldLayoutConstraint.constant = imageView.frame.height - (y + textField.frame.height)
+        }
+    }
+    
+    private func setYPosition(of textField: UITextField, centerY: CGFloat) {
+        setYPosition(of: textField, y: centerY - textField.frame.height / 2.0)
+    }
+    
+    private func getYPosition(of textField: UITextField) -> CGFloat {
+        if textField == topTextField {
+            return topTextFieldLayoutConstraint.constant
+        } else {
+            return imageView.frame.height - (bottomTextFieldLayoutConstraint.constant + textField.frame.height)
         }
     }
     
