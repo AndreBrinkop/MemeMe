@@ -13,7 +13,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     // MARK: Properties
     
     override var prefersStatusBarHidden: Bool { return true }
-    let MIN_TEXT_SIZE: CGFloat = 24.0
+    static let MIN_FONT_SIZE: CGFloat = 24.0
+    static let DEFAULT_FONT_SIZE: CGFloat = 40.0
 
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -26,12 +27,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     let bottomTextFieldInitialText = "BOTTOM"
     
     @IBOutlet var topTextFieldLayoutConstraint: NSLayoutConstraint!
+    let topTextFieldLayoutConstraintInitialValue: CGFloat = 30.0
     @IBOutlet var bottomTextFieldLayoutConstraint: NSLayoutConstraint!
+    let bottomTextFieldLayoutConstraintInitialValue: CGFloat = 30.0
     
     let memeTextAttributes : [String : Any] = [
         NSStrokeColorAttributeName : UIColor.black,
         NSForegroundColorAttributeName : UIColor.white,
-        NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: DEFAULT_FONT_SIZE)!,
         NSStrokeWidthAttributeName : -2.0
     ]
     
@@ -42,6 +45,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         configureUI()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        resetTextFieldPositionAndSize()
+    }
+    
     private func configureUI() {
         cancelButton.isEnabled = false
         shareButton.isEnabled = false
@@ -50,6 +58,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
         configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
+        resetTextFieldPositionAndSize()
     }
     
     private func configureTextField(textField: UITextField, initialText: String) {
@@ -57,6 +66,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         textField.text = initialText
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = NSTextAlignment.center
+    }
+    
+    private func resetTextFieldPositionAndSize() {
+        topTextFieldLayoutConstraint.constant = topTextFieldLayoutConstraintInitialValue
+        bottomTextFieldLayoutConstraint.constant = bottomTextFieldLayoutConstraintInitialValue
+        
+        let font = topTextField.font!.withSize(ViewController.DEFAULT_FONT_SIZE)
+        topTextField.font = font
+        bottomTextField.font = font
     }
     
     // MARK: Actions
@@ -97,24 +115,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
     }
     
-    var initialFontSize: CGFloat = 40.0
-    var initialYCenter: CGFloat = 0.0
+    var fontSizeBeforeGesture: CGFloat = 40.0
+    var yCenterBeforeGesture: CGFloat = 0.0
     
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
         if let textField: UITextField = sender.view as? UITextField {
             
             if sender.state == .began {
-                initialFontSize = (textField.font?.pointSize)!
-                initialYCenter = getYPosition(of: textField) + textField.frame.height / 2.0
+                fontSizeBeforeGesture = (textField.font?.pointSize)!
+                yCenterBeforeGesture = getYPosition(of: textField) + textField.frame.height / 2.0
             } else if sender.state == .changed {
                 
                 let (lowerBorder, upperBorder) = getYPositionBorders(of: textField)
                 
                 if sender.scale <= 1.0 || upperBorder - lowerBorder > 0 {
                     var font = textField.font!
-                    font = font.withSize(max(initialFontSize * sender.scale, MIN_TEXT_SIZE))
+                    font = font.withSize(max(fontSizeBeforeGesture * sender.scale, ViewController.MIN_FONT_SIZE))
                     textField.font = font
-                    setYPosition(of: textField, centerY: initialYCenter)
+                    setYPosition(of: textField, centerY: yCenterBeforeGesture)
                 }
             }
         }
