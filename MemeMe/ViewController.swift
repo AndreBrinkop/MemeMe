@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     // MARK: Properties
     
     override var prefersStatusBarHidden: Bool { return true }
+    let MIN_TEXT_SIZE: CGFloat = 24.0
 
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -106,10 +107,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 initialFontSize = (textField.font?.pointSize)!
                 initialYCenter = getYPosition(of: textField) + textField.frame.height / 2.0
             } else if sender.state == .changed {
-                var font = textField.font!
-                font = font.withSize(max(initialFontSize * sender.scale, 8.0))
-                textField.font = font
-                setYPosition(of: textField, centerY: initialYCenter)
+                
+                let (lowerBorder, upperBorder) = getYPositionBorders(of: textField)
+                
+                if sender.scale <= 1.0 || upperBorder - lowerBorder > 0 {
+                    var font = textField.font!
+                    font = font.withSize(max(initialFontSize * sender.scale, MIN_TEXT_SIZE))
+                    textField.font = font
+                    setYPosition(of: textField, centerY: initialYCenter)
+                }
             }
         }
     }
@@ -135,6 +141,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     private func setYPosition(of textField: UITextField, y: CGFloat) {
+        var y = y
+        let (lowerBorder, upperBorder) = getYPositionBorders(of: textField)
+        
+        if y > upperBorder {
+            y = upperBorder
+        }
+        else if y < lowerBorder {
+            y = lowerBorder
+        }
+        
         if textField == topTextField {
             topTextFieldLayoutConstraint.constant = y
         } else {
