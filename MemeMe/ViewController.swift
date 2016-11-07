@@ -24,6 +24,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBOutlet weak var bottomTextField: UITextField!
     let bottomTextFieldInitialText = "BOTTOM"
     
+    @IBOutlet var topTextFieldLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet var bottomTextFieldLayoutConstraint: NSLayoutConstraint!
+    
     let memeTextAttributes : [String : Any] = [
         NSStrokeColorAttributeName : UIColor.black,
         NSForegroundColorAttributeName : UIColor.white,
@@ -82,12 +85,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
         if let textField: UITextField = sender.view as? UITextField {
             if sender.numberOfTouches == 1 {
-                var newPositionY: CGFloat = sender.location(in: self.view).y
-                let (lowerBorder, upperBorder) = getYPositionBorders(for: textField)
+                var yCoordinate: CGFloat = getPannedTextFieldCoordinate(of: sender)
+                let (lowerBorder, upperBorder) = getYPositionBorders(of: textField)
+
+                yCoordinate = max(lowerBorder, yCoordinate)
+                yCoordinate = min(upperBorder, yCoordinate)
                 
-                newPositionY = max(lowerBorder, newPositionY)
-                newPositionY = min(upperBorder - textField.frame.height, newPositionY)
-                textField.frame.origin.y = newPositionY
+                setYPosition(of: textField, y: yCoordinate)
             }
         }
     }
@@ -105,12 +109,33 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
         
     }
+    
+    private func getPannedTextFieldCoordinate(of gestureRecognizer: UIPanGestureRecognizer) -> CGFloat {
+        var yCoordinate: CGFloat = gestureRecognizer.location(in: self.imageView).y
+        
+        if gestureRecognizer.view == topTextField {
+            yCoordinate -= gestureRecognizer.view!.frame.height / 2.0
+        } else {
+            yCoordinate += gestureRecognizer.view!.frame.height / 2.0
+        }
+        
+        return yCoordinate
+    }
 
-    private func getYPositionBorders(for textField: UITextField) -> (CGFloat, CGFloat) {
+    private func getYPositionBorders(of textField: UITextField) -> (CGFloat, CGFloat) {
+        let textFieldTotalHeight = topTextField.frame.height + bottomTextField.frame.height
         if(textField == topTextField) {
-            return (self.imageView.frame.minY, bottomTextField.frame.minY)
+            return (0.0, self.imageView.frame.height - bottomTextFieldLayoutConstraint.constant - textFieldTotalHeight)
         } // textField == bottomTextField
-        return (topTextField.frame.maxY, self.imageView.frame.maxY)
+        return (topTextFieldLayoutConstraint.constant + textFieldTotalHeight, self.imageView.frame.height)
+    }
+    
+    private func setYPosition(of textField: UITextField, y: CGFloat) {
+        if textField == topTextField {
+            topTextFieldLayoutConstraint.constant = y
+        } else {
+            bottomTextFieldLayoutConstraint.constant = imageView.frame.height - y
+        }
     }
     
     // MARK: UITextFieldDelegate
