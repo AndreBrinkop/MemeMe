@@ -97,9 +97,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         topTextFieldLayoutConstraint.constant = topTextFieldLayoutConstraintInitialValue
         bottomTextFieldLayoutConstraint.constant = bottomTextFieldLayoutConstraintInitialValue
         
-        let font = topTextField.font!.withSize(ViewController.DEFAULT_FONT_SIZE)
-        topTextField.font = font
-        bottomTextField.font = font
+        if let font = topTextField.font?.withSize(ViewController.DEFAULT_FONT_SIZE) {
+            topTextField.font = font
+            bottomTextField.font = font
+        }
     }
     
     // MARK: Actions
@@ -124,7 +125,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     private func alertUserThatCameraAccessIsMissing() {
         let appName = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
-        let message = "You didn't allow \(appName!) to use the camera of your device!"
+        var message = "You didn't allow this app to use the camera of your device!"
+        if let appName = appName {
+            message = "You didn't allow \(appName) to use the camera of your device!"
+        }
         let alert = UIAlertController(title: "Capturing failed", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -197,7 +201,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         if let textField: UITextField = sender.view as? UITextField {
             
             if sender.state == .began {
-                fontSizeBeforeGesture = (textField.font?.pointSize)!
+                fontSizeBeforeGesture = textField.font!.pointSize
                 yCenterBeforeGesture = getYPosition(of: textField) + textField.frame.height / 2.0
             } else if sender.state == .changed {
                 
