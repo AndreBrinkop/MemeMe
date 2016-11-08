@@ -120,7 +120,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 
     
     @IBAction func cancel(_ sender: AnyObject) {
-            print("Pressed cancel button")
+        imageView.image = nil
+        resetTextFieldPositionAndSize()
+        configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
+        configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
+        cancelButton.isEnabled = false
     }
     @IBAction func share(_ sender: AnyObject) {
              print("Pressed share button")
@@ -253,6 +257,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
+            cancelButton.isEnabled = true
         }
         self.dismiss(animated: true, completion: nil)
     }
