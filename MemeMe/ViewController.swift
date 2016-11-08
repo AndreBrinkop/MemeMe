@@ -9,6 +9,17 @@
 import UIKit
 import AVFoundation
 
+struct Meme {
+    let topText: String
+    let topTextLayoutConstant: CGFloat
+    let topTextFont: UIFont
+    let bottomText: String
+    let bottomTextLayoutConstant: CGFloat
+    let bottomTextFont: UIFont
+    let image: UIImage
+    let memedImage: UIImage
+}
+
 class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
@@ -40,12 +51,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     ]
     
     var activeTextFieldField: UITextField?
+    var memedImage: UIImage?
     
     // MARK: Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        initializeUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +75,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         resetTextFieldPositionAndSize()
     }
     
-    private func configureUI() {
+    private func initializeUI() {
         cancelButton.isEnabled = false
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
@@ -121,13 +133,33 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func cancel(_ sender: AnyObject) {
         imageView.image = nil
-        resetTextFieldPositionAndSize()
-        configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
-        configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
-        cancelButton.isEnabled = false
+        initializeUI()
     }
     @IBAction func share(_ sender: AnyObject) {
-             print("Pressed share button")
+        print("Pressed share button")
+        memedImage = generateMemedImage()
+        //define an instance of the ActivityViewController
+        let activityViewController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: {self.save()})
+    }
+    
+    // MARK: Generate Meme
+    
+    func save() {
+        _ = Meme(topText: topTextField.text!, topTextLayoutConstant: topTextFieldLayoutConstraint.constant, topTextFont: topTextField.font!, bottomText: bottomTextField.text!, bottomTextLayoutConstant: bottomTextFieldLayoutConstraint.constant, bottomTextFont: bottomTextField.font!, image: imageView.image!, memedImage: memedImage!)
+        // TODO: Storing generated meme object
+    }
+    
+    func generateMemedImage() -> UIImage {
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.imageView.frame.size)
+
+        view.drawHierarchy(in: CGRect(x: 0, y: -imageView.frame.minY, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
+
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return memedImage
     }
     
     // MARK: GestureRecognizer Actions
@@ -258,6 +290,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
             cancelButton.isEnabled = true
+            shareButton.isEnabled = true
         }
         self.dismiss(animated: true, completion: nil)
     }
