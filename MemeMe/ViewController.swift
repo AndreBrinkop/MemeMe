@@ -138,9 +138,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBAction func share(_ sender: AnyObject) {
         print("Pressed share button")
         memedImage = generateMemedImage()
-        //define an instance of the ActivityViewController
         let activityViewController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: {self.save()})
+        activityViewController.completionWithItemsHandler = {activityType, completed, returnedItems, activityError in
+            if completed && activityError == nil {
+                self.save()
+            }
+        }
+        present(activityViewController, animated: true, completion: nil)
     }
     
     // MARK: Generate Meme
@@ -151,7 +155,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func generateMemedImage() -> UIImage {
-        // Render view to an image
+        // Render imageView to an image
         UIGraphicsBeginImageContext(self.imageView.frame.size)
 
         view.drawHierarchy(in: CGRect(x: 0, y: -imageView.frame.minY, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
