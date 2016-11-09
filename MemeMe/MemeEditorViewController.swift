@@ -9,18 +9,7 @@
 import UIKit
 import AVFoundation
 
-struct Meme {
-    let topText: String
-    let topTextLayoutConstant: CGFloat
-    let topTextFont: UIFont
-    let bottomText: String
-    let bottomTextLayoutConstant: CGFloat
-    let bottomTextFont: UIFont
-    let image: UIImage
-    let memedImage: UIImage
-}
-
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
@@ -97,7 +86,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         topTextFieldLayoutConstraint.constant = topTextFieldLayoutConstraintInitialValue
         bottomTextFieldLayoutConstraint.constant = bottomTextFieldLayoutConstraintInitialValue
         
-        if let font = topTextField.font?.withSize(ViewController.DEFAULT_FONT_SIZE) {
+        if let font = topTextField.font?.withSize(MemeEditorViewController.DEFAULT_FONT_SIZE) {
             topTextField.font = font
             bottomTextField.font = font
         }
@@ -131,7 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
         let alert = UIAlertController(title: "Capturing failed", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 
     
@@ -160,7 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     func generateMemedImage() -> UIImage {
         // Render imageView to an image
-        UIGraphicsBeginImageContext(self.imageView.frame.size)
+        UIGraphicsBeginImageContext(imageView.frame.size)
 
         view.drawHierarchy(in: CGRect(x: 0, y: -imageView.frame.minY, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
 
@@ -209,7 +198,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 
                 if sender.scale <= 1.0 || upperBorder - lowerBorder > 0 {
                     var font = textField.font!
-                    font = font.withSize(max(fontSizeBeforeGesture * sender.scale, ViewController.MIN_FONT_SIZE))
+                    font = font.withSize(max(fontSizeBeforeGesture * sender.scale, MemeEditorViewController.MIN_FONT_SIZE))
                     textField.font = font
                     setYPosition(of: textField, centerY: yCenterBeforeGesture)
                 }
@@ -218,7 +207,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     private func getPannedTextFieldCoordinate(of gestureRecognizer: UIPanGestureRecognizer) -> CGFloat {
-        var yCoordinate: CGFloat = gestureRecognizer.location(in: self.imageView).y
+        var yCoordinate: CGFloat = gestureRecognizer.location(in: imageView).y
         let textFieldHeight: CGFloat = gestureRecognizer.view!.frame.height / 2.0
         
         if gestureRecognizer.view == topTextField {
@@ -232,9 +221,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
 
     private func getYPositionBorders(of textField: UITextField) -> (CGFloat, CGFloat) {
         if(textField == topTextField) {
-            return (0.0, self.imageView.frame.height - bottomTextFieldLayoutConstraint.constant - (topTextField.frame.height + bottomTextField.frame.height))
+            return (0.0, imageView.frame.height - bottomTextFieldLayoutConstraint.constant - (topTextField.frame.height + bottomTextField.frame.height))
         } // textField == bottomTextField
-        return (topTextFieldLayoutConstraint.constant + topTextField.frame.height, self.imageView.frame.height - bottomTextField.frame.height)
+        return (topTextFieldLayoutConstraint.constant + topTextField.frame.height, imageView.frame.height - bottomTextField.frame.height)
     }
     
     private func setYPosition(of textField: UITextField, y: CGFloat) {
@@ -300,7 +289,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
             cancelButton.isEnabled = true
             shareButton.isEnabled = true
         }
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: KeyboardNotifications
