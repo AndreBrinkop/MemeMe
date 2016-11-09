@@ -149,7 +149,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func generateMemedImage() -> UIImage {
         // Render imageView to an image
-        UIGraphicsBeginImageContext(imageView.frame.size)
+        UIGraphicsBeginImageContextWithOptions(imageView.frame.size, false, 0.0);
 
         view.drawHierarchy(in: CGRect(x: 0, y: -imageView.frame.minY, width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
 
