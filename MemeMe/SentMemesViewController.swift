@@ -9,6 +9,18 @@
 import UIKit
 
 class SentMemesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet var sentMemesTableView: UITableView?
+    @IBOutlet var sentMemesCollectionView: UICollectionView?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let sentMemesTableView = sentMemesTableView {
+            sentMemesTableView.reloadData()
+        }
+        if let sentMemesCollectionView = sentMemesCollectionView {
+            sentMemesCollectionView.reloadData()
+        }
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfSavedMemes()

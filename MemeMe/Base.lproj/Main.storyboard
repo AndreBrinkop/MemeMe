@@ -96,6 +96,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Collection" id="rb9-hh-X9h"/>
+                    <connections>
+                        <outlet property="sentMemesCollectionView" destination="Kge-qj-7Iq" id="LeR-jy-6RW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lrv-uf-OJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -141,6 +144,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Table" id="gvN-0e-PAD"/>
+                    <connections>
+                        <outlet property="sentMemesTableView" destination="Qpc-OZ-CUT" id="Ydp-zk-4RE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6pm-1a-LAe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
