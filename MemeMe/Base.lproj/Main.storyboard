@@ -54,7 +54,7 @@
         <scene sceneID="Yz6-6z-sTb">
             <objects>
                 <collectionViewController id="9cB-Ez-r8N" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="S2F-cQ-4Wh">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="S2F-cQ-4Wh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -221,7 +221,6 @@
                         <outlet property="bottomTextField" destination="kO9-Ga-P5B" id="bmR-co-Ix1"/>
                         <outlet property="bottomTextFieldLayoutConstraint" destination="rdw-5C-h0E" id="DEg-ue-aeA"/>
                         <outlet property="cameraButton" destination="g9k-1k-1bh" id="3Qr-Wg-XeV"/>
-                        <outlet property="cancelButton" destination="lIw-wq-Dbq" id="qX1-hd-4gT"/>
                         <outlet property="imageView" destination="sTm-aI-TUr" id="2I9-cA-Xgv"/>
                         <outlet property="shareButton" destination="w6q-xA-sT6" id="BAa-qU-27e"/>
                         <outlet property="topTextField" destination="3bI-Nb-VQk" id="mM1-Fv-rX4"/>

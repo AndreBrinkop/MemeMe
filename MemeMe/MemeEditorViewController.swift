@@ -17,7 +17,6 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     static let MIN_FONT_SIZE: CGFloat = 24.0
     static let DEFAULT_FONT_SIZE: CGFloat = 40.0
 
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
@@ -65,7 +64,6 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     private func initializeUI() {
-        cancelButton.isEnabled = false
         shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         imageView.contentMode = .scaleAspectFit
@@ -125,8 +123,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
 
     
     @IBAction func cancel(_ sender: AnyObject) {
-        imageView.image = nil
-        initializeUI()
+        dismiss(animated: true, completion: nil)
     }
     @IBAction func share(_ sender: AnyObject) {
         print("Pressed share button")
@@ -286,7 +283,6 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
-            cancelButton.isEnabled = true
             shareButton.isEnabled = true
         }
         dismiss(animated: true, completion: nil)
