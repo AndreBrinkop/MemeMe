@@ -140,8 +140,12 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     // MARK: Generate Meme
     
     func save() {
-        _ = Meme(topText: topTextField.text!, topTextLayoutConstant: topTextFieldLayoutConstraint.constant, topTextFont: topTextField.font!, bottomText: bottomTextField.text!, bottomTextLayoutConstant: bottomTextFieldLayoutConstraint.constant, bottomTextFont: bottomTextField.font!, image: imageView.image!, memedImage: memedImage!)
-        // TODO: Storing generated meme object
+        let meme = Meme(topText: topTextField.text!, topTextLayoutConstant: topTextFieldLayoutConstraint.constant, topTextFont: topTextField.font!, bottomText: bottomTextField.text!, bottomTextLayoutConstant: bottomTextFieldLayoutConstraint.constant, bottomTextFont: bottomTextField.font!, image: imageView.image!, memedImage: memedImage!)
+        
+        // Storing generated meme object
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
