@@ -13,6 +13,13 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var sentMemesTableView: UITableView?
     @IBOutlet var sentMemesCollectionView: UICollectionView?
     
+    var savedMemes: [Meme] {
+        get {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            return appDelegate.memes
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if let sentMemesTableView = sentMemesTableView {
             sentMemesTableView.reloadData()
@@ -49,10 +56,10 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     private func numberOfSavedMemes() -> Int {
-        return 0 // placeholder
+        return savedMemes.count
     }
     
     private func savedMemeFor(indexPath: IndexPath) -> Meme {
-        return Meme(topText: "", topTextLayoutConstant: 0.0, topTextFont: UIFont(), bottomText: "", bottomTextLayoutConstant: 0.0, bottomTextFont: UIFont(), image: UIImage(), memedImage: UIImage()) // placeholder
+        return savedMemes[indexPath.row]
     }
 }
