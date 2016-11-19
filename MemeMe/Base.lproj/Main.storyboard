@@ -50,7 +50,7 @@
             </objects>
             <point key="canvasLocation" x="-2020" y="-485"/>
         </scene>
-        <!--Item-->
+        <!--Collection View Controller-->
         <scene sceneID="Yz6-6z-sTb">
             <objects>
                 <collectionViewController id="9cB-Ez-r8N" sceneMemberID="viewController">
@@ -79,13 +79,13 @@
                             <outlet property="delegate" destination="9cB-Ez-r8N" id="EcA-lQ-Ocd"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" id="66J-rB-7DD"/>
+                    <tabBarItem key="tabBarItem" title="" image="Collection" id="66J-rB-7DD"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3f-NL-AOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1076" y="-117"/>
         </scene>
-        <!--Item-->
+        <!--Table View Controller-->
         <scene sceneID="7IU-eD-GX8">
             <objects>
                 <tableViewController id="xXa-aL-Ai7" sceneMemberID="viewController">
@@ -108,7 +108,7 @@
                             <outlet property="delegate" destination="xXa-aL-Ai7" id="qNd-Fo-MQR"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="hOS-xT-Mt8"/>
+                    <tabBarItem key="tabBarItem" title="" image="Table" id="hOS-xT-Mt8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7V-tf-NyE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -253,4 +253,8 @@
             <point key="canvasLocation" x="-2020" y="305"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Collection" width="30" height="30"/>
+        <image name="Table" width="30" height="30"/>
+    </resources>
 </document>
