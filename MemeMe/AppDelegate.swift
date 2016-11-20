@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return memes
     }
     
+    func setMemes(memes: [Meme]) {
+        self.memes = memes
+    }
+    
     func addMeme(meme: Meme) {
         memes.append(meme)
     }

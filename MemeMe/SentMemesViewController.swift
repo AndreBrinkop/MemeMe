@@ -19,6 +19,10 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             return appDelegate.getMemes()
         }
+        set (savedMemes) {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.setMemes(memes: savedMemes)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +68,13 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         displayMemeAt(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            savedMemes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
