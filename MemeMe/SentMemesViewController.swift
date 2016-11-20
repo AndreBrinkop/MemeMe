@@ -60,6 +60,10 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        displayMemeAt(indexPath: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfSavedMemes()
     }
@@ -73,11 +77,22 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        displayMemeAt(indexPath: indexPath)
+    }
+    
     private func numberOfSavedMemes() -> Int {
         return savedMemes.count
     }
     
     private func savedMemeFor(indexPath: IndexPath) -> Meme {
         return savedMemes[indexPath.row]
+    }
+    
+    private func displayMemeAt(indexPath: IndexPath) {
+        let memeDisplayViewController = storyboard?.instantiateViewController(withIdentifier: "MemeDisplayViewController") as! MemeDisplayViewController
+        memeDisplayViewController.memedImage = savedMemeFor(indexPath: indexPath).memedImage
+        
+        navigationController?.pushViewController(memeDisplayViewController, animated: true)
     }
 }
