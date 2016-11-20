@@ -14,7 +14,14 @@ class MemeDisplayViewController: UIViewController {
     var meme: Meme!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         memeImageView.image = meme.memedImage
+    }
+
+    @IBAction func shareMeme(_ sender: Any) {
+        let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 
 }
