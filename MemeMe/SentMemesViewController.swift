@@ -12,6 +12,7 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet var sentMemesTableView: UITableView?
     @IBOutlet var sentMemesCollectionView: UICollectionView?
+    @IBOutlet var sentMemesCollectionFlowLayout: UICollectionViewFlowLayout?
     
     var savedMemes: [Meme] {
         get {
@@ -28,16 +29,33 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
             sentMemesCollectionView.reloadData()
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let space:CGFloat = 3.0
+        let dimension = (view.frame.size.width - (2 * space)) / 3.0
+        
+        if let sentMemesCollectionFlowLayout = sentMemesCollectionFlowLayout {
+            sentMemesCollectionFlowLayout.minimumInteritemSpacing = space
+            sentMemesCollectionFlowLayout.minimumLineSpacing = space
+            sentMemesCollectionFlowLayout.itemSize = CGSize(width: dimension, height: dimension)
+        }
+        
+
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfSavedMemes()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableViewCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableViewCell") as! MemeTableViewCell
         
-        let _ = savedMemeFor(indexPath: indexPath)
-        // TODO: Configure cell
+        let savedMeme = savedMemeFor(indexPath: indexPath)
+        cell.memeImageView.image = savedMeme.memedImage
+        cell.topLabel.text = savedMeme.topText
+        cell.bottomLabel.text = savedMeme.bottomText
         
         return cell
     }
@@ -47,10 +65,10 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SentMemesCollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SentMemesCollectionViewCell", for: indexPath) as! MemeCollectionViewCell
         
-        let _ = savedMemeFor(indexPath: indexPath)
-        // TODO: Configure cell
+        let savedMeme = savedMemeFor(indexPath: indexPath)
+        cell.memeImageView.image = savedMeme.memedImage
         
         return cell
     }
