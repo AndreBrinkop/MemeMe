@@ -17,7 +17,7 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     var savedMemes: [Meme] {
         get {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return appDelegate.memes
+            return appDelegate.getMemes()
         }
     }
     
@@ -91,7 +91,7 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func displayMemeAt(indexPath: IndexPath) {
         let memeDisplayViewController = storyboard?.instantiateViewController(withIdentifier: "MemeDisplayViewController") as! MemeDisplayViewController
-        memeDisplayViewController.memedImage = savedMemeFor(indexPath: indexPath).memedImage
+        memeDisplayViewController.meme = savedMemeFor(indexPath: indexPath)
         
         navigationController?.pushViewController(memeDisplayViewController, animated: true)
     }

@@ -12,7 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var memes = [Meme]()
+    private var memes = [Meme]()
+    
+    func getMemes() -> [Meme] {
+        return memes
+    }
+    
+    func addMeme(meme: Meme) {
+        memes.append(meme)
+    }
 
 }
 

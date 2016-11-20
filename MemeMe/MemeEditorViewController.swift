@@ -145,7 +145,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Storing generated meme object
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
-        appDelegate.memes.append(meme)
+        appDelegate.addMeme(meme: meme)
     }
     
     func generateMemedImage() -> UIImage {
