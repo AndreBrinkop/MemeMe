@@ -68,10 +68,10 @@
 		90CA55221DC6125A00903C7E /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
-				90D4887A1DE39FE90057FA17 /* Controller */,
-				90D488791DE39FDB0057FA17 /* Util */,
 				90D488781DE39FD20057FA17 /* Model */,
 				90D488771DE39F9C0057FA17 /* View */,
+				90D4887A1DE39FE90057FA17 /* Controller */,
+				90D488791DE39FDB0057FA17 /* Util */,
 				90CA55231DC6125A00903C7E /* AppDelegate.swift */,
 				90CA55271DC6125A00903C7E /* Main.storyboard */,
 				90CA552A1DC6125A00903C7E /* Assets.xcassets */,
