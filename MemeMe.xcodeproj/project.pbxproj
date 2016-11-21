@@ -68,21 +68,53 @@
 		90CA55221DC6125A00903C7E /* MemeMe */ = {
 			isa = PBXGroup;
 			children = (
+				90D4887A1DE39FE90057FA17 /* Controller */,
+				90D488791DE39FDB0057FA17 /* Util */,
+				90D488781DE39FD20057FA17 /* Model */,
+				90D488771DE39F9C0057FA17 /* View */,
 				90CA55231DC6125A00903C7E /* AppDelegate.swift */,
-				90CA55251DC6125A00903C7E /* MemeEditorViewController.swift */,
 				90CA55271DC6125A00903C7E /* Main.storyboard */,
-				90D488731DE2906F0057FA17 /* SentMemesTabBarController.swift */,
-				9002C30E1DE11E77004E8B41 /* MemeTableViewCell.swift */,
-				9002C3101DE1203D004E8B41 /* MemeCollectionViewCell.swift */,
 				90CA552A1DC6125A00903C7E /* Assets.xcassets */,
 				90CA552C1DC6125A00903C7E /* LaunchScreen.storyboard */,
 				90CA552F1DC6125A00903C7E /* Info.plist */,
-				908CF1621DD2B5B10039DAD7 /* Meme.swift */,
-				9002C30C1DE0E29E004E8B41 /* SentMemesViewController.swift */,
-				9002C3121DE1227A004E8B41 /* MemeDisplayViewController.swift */,
-				90D488751DE2F73A0057FA17 /* ImagePickerHelper.swift */,
 			);
 			path = MemeMe;
+			sourceTree = "<group>";
+		};
+		90D488771DE39F9C0057FA17 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9002C30E1DE11E77004E8B41 /* MemeTableViewCell.swift */,
+				9002C3101DE1203D004E8B41 /* MemeCollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		90D488781DE39FD20057FA17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				908CF1621DD2B5B10039DAD7 /* Meme.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		90D488791DE39FDB0057FA17 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				90D488751DE2F73A0057FA17 /* ImagePickerHelper.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		90D4887A1DE39FE90057FA17 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				90CA55251DC6125A00903C7E /* MemeEditorViewController.swift */,
+				90D488731DE2906F0057FA17 /* SentMemesTabBarController.swift */,
+				9002C30C1DE0E29E004E8B41 /* SentMemesViewController.swift */,
+				9002C3121DE1227A004E8B41 /* MemeDisplayViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

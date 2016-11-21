@@ -10,6 +10,8 @@ import UIKit
 
 class SentMemesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    // MARK: Properties
+    
     @IBOutlet var sentMemesTableView: UITableView?
     @IBOutlet var sentMemesCollectionView: UICollectionView?
     @IBOutlet var sentMemesCollectionFlowLayout: UICollectionViewFlowLayout?
@@ -24,6 +26,8 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
             appDelegate.setMemes(memes: savedMemes)
         }
     }
+    
+    // MARK: Initialization
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,9 +51,9 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
             sentMemesCollectionFlowLayout.minimumLineSpacing = space
             sentMemesCollectionFlowLayout.itemSize = CGSize(width: dimension, height: dimension)
         }
-        
-
     }
+    
+    // MARK: TableView Actions
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfSavedMemes()
@@ -77,6 +81,8 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    // MARK: CollectionView Actions
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return numberOfSavedMemes()
     }
@@ -93,6 +99,8 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         displayMemeAt(indexPath: indexPath)
     }
+    
+    // MARK: Actions
     
     private func numberOfSavedMemes() -> Int {
         return savedMemes.count

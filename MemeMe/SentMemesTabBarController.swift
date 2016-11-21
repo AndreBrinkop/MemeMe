@@ -10,6 +10,8 @@ import UIKit
 
 class SentMemesTabBarController: UITabBarController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    // MARK: Actions
+    
     @IBAction func createMeme(_ sender: Any) {
         let isCameraAvailable = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         let cameraImagePicker = ImagePickerHelper.setupImagePicker(sourceType: .camera, delegate: self)
@@ -35,6 +37,8 @@ class SentMemesTabBarController: UITabBarController, UIImagePickerControllerDele
 
         present(alertController, animated: true, completion: nil)
     }
+    
+    // MARK: UIImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
