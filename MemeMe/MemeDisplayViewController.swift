@@ -15,7 +15,6 @@ class MemeDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         memeImageView.image = meme.memedImage
     }
 

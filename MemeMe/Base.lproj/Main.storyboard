@@ -29,11 +29,11 @@
         <!--Sent Memes-->
         <scene sceneID="KlE-ST-GCq">
             <objects>
-                <tabBarController id="vG8-to-kcW" sceneMemberID="viewController">
+                <tabBarController id="vG8-to-kcW" customClass="SentMemesTabBarController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Sent Memes" id="Yq7-xd-cl2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Qaa-Rf-9ha">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="JIV-GE-Oe2"/>
+                                <action selector="createMeme:" destination="vG8-to-kcW" id="OdG-PZ-acH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -253,7 +253,7 @@
         <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeEditorViewController" id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>

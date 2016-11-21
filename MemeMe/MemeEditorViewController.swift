@@ -39,6 +39,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     ]
     
     var activeTextFieldField: UITextField?
+    var image: UIImage?
     var memedImage: UIImage?
     
     // MARK: Initialization
@@ -64,9 +65,14 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     private func initializeUI() {
-        shareButton.isEnabled = false
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         imageView.contentMode = .scaleAspectFit
+        
+        if let image = image {
+            imageView.image = image
+        } else {
+            shareButton.isEnabled = false
+        }
         
         configureTextField(textField: topTextField, initialText: topTextFieldInitialText)
         configureTextField(textField: bottomTextField, initialText: bottomTextFieldInitialText)
@@ -94,34 +100,15 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         var sourceType: UIImagePickerControllerSourceType = UIImagePickerControllerSourceType.camera
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         
         if sender.title == "Album" {
             sourceType = UIImagePickerControllerSourceType.photoLibrary
-        } else if (cameraAuthorizationStatus == AVAuthorizationStatus.denied){
-            alertUserThatCameraAccessIsMissing()
-            return
         }
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    private func alertUserThatCameraAccessIsMissing() {
-        let appName = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String
-        var message = "You didn't allow this app to use the camera of your device!"
-        if let appName = appName {
-            message = "You didn't allow \(appName) to use the camera of your device!"
-        }
-        let alert = UIAlertController(title: "Capturing failed", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+
+        let imagePickerViewController = ImagePickerHelper.setupImagePicker(sourceType: sourceType, delegate: self)
+        present(imagePickerViewController, animated: true, completion: nil)
     }
 
-    
     @IBAction func cancel(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
     }
@@ -138,9 +125,10 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     // MARK: Generate Meme
+
     
     func save() {
-        let meme = Meme(topText: topTextField.text!, topTextLayoutConstant: topTextFieldLayoutConstraint.constant, topTextFont: topTextField.font!, bottomText: bottomTextField.text!, bottomTextLayoutConstant: bottomTextFieldLayoutConstraint.constant, bottomTextFont: bottomTextField.font!, image: imageView.image!, memedImage: memedImage!)
+        let meme = Meme(topText: topTextField.text!, topTextLayoutConstant: topTextFieldLayoutConstraint.constant, topTextFont: topTextField.font!, bottomText: bottomTextField.text!, bottomTextLayoutConstant: bottomTextFieldLayoutConstraint.constant, bottomTextFont: bottomTextField.font!, image: image!, memedImage: memedImage!)
         
         // Storing generated meme object
         let object = UIApplication.shared.delegate
@@ -150,7 +138,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func generateMemedImage() -> UIImage {
         // Render imageView to an image
-        let imageRect = AVMakeRect(aspectRatio: imageView.image!.size, insideRect: imageView.bounds)
+        let imageRect = AVMakeRect(aspectRatio: image!.size, insideRect: imageView.bounds)
         
         UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0.0);
 
@@ -288,6 +276,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.image = image
             imageView.image = image
             shareButton.isEnabled = true
         }
