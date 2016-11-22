@@ -54,7 +54,7 @@
         <!--Sent Memes Collection View Controller-->
         <scene sceneID="CbM-Go-VLb">
             <objects>
-                <viewController title="Sent Memes Collection View Controller" id="pC8-z3-Cg9" customClass="SentMemesViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Sent Memes Collection View Controller" id="pC8-z3-Cg9" customClass="SentMemesCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EOf-5J-nFn"/>
                         <viewControllerLayoutGuide type="bottom" id="Slh-YM-STQ"/>
@@ -112,8 +112,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Collection" id="rb9-hh-X9h"/>
                     <connections>
-                        <outlet property="sentMemesCollectionFlowLayout" destination="cF7-It-Rgx" id="c2D-gN-h66"/>
-                        <outlet property="sentMemesCollectionView" destination="Kge-qj-7Iq" id="LeR-jy-6RW"/>
+                        <outlet property="sentMemesCollectionFlowLayout" destination="cF7-It-Rgx" id="Hzp-UV-dXX"/>
+                        <outlet property="sentMemesCollectionView" destination="Kge-qj-7Iq" id="NNI-FN-r45"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lrv-uf-OJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -163,7 +163,7 @@
         <!--Sent Memes Table View Controller-->
         <scene sceneID="BKx-dP-fTM">
             <objects>
-                <viewController title="Sent Memes Table View Controller" id="p4y-eo-wTf" customClass="SentMemesViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Sent Memes Table View Controller" id="p4y-eo-wTf" customClass="SentMemesTableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o0H-oK-z03"/>
                         <viewControllerLayoutGuide type="bottom" id="MoL-qy-pEn"/>
