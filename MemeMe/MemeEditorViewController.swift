@@ -119,6 +119,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         activityViewController.completionWithItemsHandler = {activityType, completed, returnedItems, activityError in
             if completed && activityError == nil {
                 self.save()
+                self.dismiss(animated: true, completion: nil)
             }
         }
         present(activityViewController, animated: true, completion: nil)
@@ -140,7 +141,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         // Render imageView to an image
         let imageRect = AVMakeRect(aspectRatio: image!.size, insideRect: imageView.bounds)
         
-        UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0.0);
+        UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0.0)
 
         view.drawHierarchy(in: CGRect(x: -(imageView.frame.minX + imageRect.minX), y: -(imageView.frame.minY + imageRect.minY), width: view.bounds.size.width, height: view.bounds.size.height), afterScreenUpdates: true)
 
