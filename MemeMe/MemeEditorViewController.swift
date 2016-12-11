@@ -38,7 +38,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         NSStrokeWidthAttributeName : -2.0
     ]
     
-    var activeTextFieldField: UITextField?
+    var activeTextField: UITextField?
     var image: UIImage?
     var memedImage: UIImage?
     
@@ -154,7 +154,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     // MARK: GestureRecognizer Actions
     
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
-        if activeTextFieldField != nil {
+        if activeTextField != nil {
             return
         }
         
@@ -175,7 +175,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     var yCenterBeforeGesture: CGFloat = 0.0
     
     @IBAction func handlePinch(_ sender: UIPinchGestureRecognizer) {
-        if activeTextFieldField != nil {
+        if activeTextField != nil {
             return
         }
         
@@ -260,14 +260,14 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        activeTextFieldField = textField
+        activeTextField = textField
         if textField.text == getInitialText(for: textField) {
             textField.text = ""
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        activeTextFieldField = nil
+        activeTextField = nil
         if textField.text == "" {
             textField.text = getInitialText(for: textField)
         }
@@ -303,7 +303,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func keyboardWillShow(notification: NSNotification) {
         shiftKeyboardBack()
         
-        if let activeTextFieldMaxY = activeTextFieldField?.frame.maxY {
+        if let activeTextFieldMaxY = activeTextField?.frame.maxY {
             let keyboardMinY = view.frame.maxY - getKeyboardHeight(notification: notification)
             
             if activeTextFieldMaxY > keyboardMinY {
